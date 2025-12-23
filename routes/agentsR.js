@@ -1,6 +1,7 @@
 import express from "express"
 import { createAgent } from "../ctrls/agentsC.js"
 
+
 const route = express.Router()
 
 // app.get("/agents")

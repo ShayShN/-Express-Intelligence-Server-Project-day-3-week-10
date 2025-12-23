@@ -1,6 +1,8 @@
 import express from "express"
-import agentControler from "./routes/agentsR.js"
-import reportsControler from "./routes/reportsR.js"
+import agentRouter from "./routes/agentsR.js"
+import reportsRouter from "./routes/reportsR.js"
+import usersRouter from "./routes/usersR.js"
+
 
 
 
@@ -9,10 +11,15 @@ const port = 3001
 
 app.use(express.json())
 
-app.use("/agents", agentControler)
+app.use("/agents", agentRouter)
 
-app.use("/reports", reportsControler)
+app.use("/reports", reportsRouter)
 
+app.use("/users", usersRouter)
+
+app.get("/health", (req, res)=>{
+    res.json({ok: true })
+})
 
 
 
