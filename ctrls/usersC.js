@@ -44,8 +44,8 @@ export const deleteUser = async (req, res) => {
             res.status(404).json("not found username to delete")
         } else {
             data.splice(foundUser, 1)
-        await writeFile(pathUsers, data)
-        res.json(data)
+            await writeFile(pathUsers, data)
+            res.json(data)
         }
     } catch (err) {
         console.error(err);
