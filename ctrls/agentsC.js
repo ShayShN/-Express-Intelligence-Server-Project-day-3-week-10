@@ -44,11 +44,22 @@ export const getAgentByID = async (req, res) => {
    }
 }
 export const updateAgent = async (req, res) => {
-    const dataAgents = await readFile(pathAgent)
-    const foundID = dataAgents.findIndex(agent => agent.id === Number(req.params.id))
-    if (foundID === -1) {
-        return res.status(404).json("id not found")
-    } else {
-        dataAgents[foundID]
-    }
+try {
+        const dataAgents = await readFile(pathAgent)
+        const foundID = dataAgents.findIndex(agent => agent.id === Number(req.params.id))
+        if (foundID === -1) {
+            return res.status(404).json("id not found")
+        } else {
+            dataAgents[foundID] = {
+                ...dataAgents[foundID],
+                name: req.body.name,
+                nickname: req.body.nickname,
+            }
+            await writeFile(pathAgent, dataAgents)
+            res.json(dataAgents[foundID])
+        }
+} catch (err) {
+    console.error(err);
+    
+}
 }
