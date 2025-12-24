@@ -36,3 +36,18 @@ export const updateUser = async (req, res) => {
     
   }
 }
+export const deleteUser = async (req, res) => {
+    try {
+        const data = await readFile(pathUsers)
+        const foundUser = data.find(user => user.username === req.params.username)
+        if (foundUser === -1) {
+            res.status(404).json("not found username to delete")
+        } else {
+            data.splice(foundUser, 1)
+            await writeFile(pathUsers, data)
+            res.json(data)
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
